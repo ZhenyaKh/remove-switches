@@ -1,0 +1,393 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{vmargin}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{url}
+\usepackage{hyperref}
+
+\usepackage{multicol}
+\setlength{\columnsep}{1cm}
+\setlength{\headheight}{36pt}
+
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break, default},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstset{
+   language=JavaScript,
+   backgroundcolor=\color{lightgray},
+   extendedchars=true,
+   basicstyle=\footnotesize\ttfamily,
+   showstringspaces=false,
+   showspaces=false,
+   numbers=left,
+   numberstyle=\footnotesize,
+   numbersep=9pt,
+   tabsize=2,
+   breaklines=true,
+   showtabs=false,
+   captionpos=b
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+\frenchspacing
+\pagestyle{fancy}
+\sloppy 
+
+\markright{headline}
+\begin{document}
+
+\lhead{\begin{tabular}{l}
+Saarland University WS 2018/2019\\
+\end{tabular}}
+
+\rhead{\begin{tabular}{r} 
+Evgeniya Khasina
+\end{tabular}}
+
+\section*{Translating a switch statement to if-else statements}
+
+Suppose we have a classical and a very simple case of a switch statement as following:
+
+
+\begin{lstlisting}
+x = 1;
+
+switch(x) {
+    case 1: 
+        console.log("case 1");
+        break;
+    case 2:
+        console.log("case 2");	
+        break;
+    default:
+        console.log("default");
+}
+
+// case 1
+\end{lstlisting}
+
+It can be rewritten as follows:
+
+\begin{lstlisting}
+x = 1;
+
+if (x === 1) { 
+    console.log("case 1");
+}
+else if (x === 2) {
+    console.log("case 2");	
+}
+else {
+    console.log("default");
+}
+
+// case 1
+\end{lstlisting}
+
+I have implemented this kind of translation successfully. However, JavaScript is a flexible programming language. For instance, there can be no break statement in a switch case as it is shown below:
+
+\begin{lstlisting}
+x = 1;
+
+switch(x) {
+    case 1: 
+        console.log("case 1");
+    case 2:
+        console.log("case 2");	
+        break;
+    default:
+        console.log("default");
+}
+
+// case 1
+// case 2
+\end{lstlisting}
+
+The first idea was to translate this kind  using labelled break statements as follows:
+
+\begin{lstlisting}
+x = 1;
+label: {
+    if (x === 1) { 
+        console.log("case 1");
+    }
+	
+    if (x === 2 || x === 1) {
+        console.log("case 2");	
+        break label;
+    }
+	
+    console.log("default");
+}
+
+// case 1
+// case 2
+\end{lstlisting}
+
+But replacing break statements with labelled break statements cannot be easily done as inside a switch case the break statement can be, for example, inside one or even several block statements or inside an if-else statement and etc. Also, there can be loops inside the switch case and the break statements relating to the loop inside the switch case rather than to the switch case itself. This makes any editing of the break statements quite problematic overall as esprima library does not provide any informtaion on relation between a break statement and an statement to which it relates. The examples of the switches are below:
+
+\begin{lstlisting}
+x = 1;
+
+switch(x) {
+    case 1: 
+        console.log("case 1");
+        { { break; } }
+    case 2:
+        console.log("case 2");	
+}
+
+// case 1
+
+switch(x) {
+    case 1: 
+        console.log("case 1");
+        while (true) {
+            break;
+        }
+        break;
+    case 2:
+        console.log("case 2");	
+}
+
+// case 1
+
+\end{lstlisting}
+
+The solution to that problem cab be wrapping if-else statements in a loop rather than using labels:
+
+\begin{lstlisting}
+x = 1;
+
+for (_xyz123uvw in [1]) {
+    if (x === 1) { 
+        console.log("case 1");
+        { { break; } }
+    }
+	
+    if (x === 2 || x === 1) {
+        console.log("case 2");
+    }	
+}
+
+// case 1
+
+for (_xyz123uvw in [1]) {
+    if (x === 1) { 
+        console.log("case 1");
+        while (true) {
+            break;
+        }    
+        break;
+    }
+	
+    if (x === 2 || x === 1) {
+        console.log("case 2");
+    }	
+}
+
+// case 1
+
+\end{lstlisting}
+
+But this cannot be the final solution. The first problem is that the test expression can be checked against quite complex expressions rather than just literals or numbers. For example, it can be checked against function calls:
+
+\begin{lstlisting}
+function case1() {
+    console.log("function case1 called");
+    return 1;
+}
+
+
+function case2() {
+    console.log("function case2 called");
+    return 2;
+}
+
+x = 1;
+
+switch (x) {
+    case case1():
+        console.log("case 1");
+    case case2():
+        console.log("case 2");	
+        break;
+}
+
+// function case1 called
+// case 1
+// case 2
+
+\end{lstlisting}
+
+If we rewrite the code we will see that $case1()$ function is called twice and this is bad as the function can have side effects:
+
+\begin{lstlisting}
+function case1() {
+    console.log("function case1 called");
+    return 1;
+}
+
+
+function case2() {
+    console.log("function case2 called");
+    return 2;
+}
+
+x = 1;
+
+for (_xyz123uvw in [1]) {
+    if (x === case1()) {
+        console.log("case 1");
+    }
+
+    if (x === case1() || x === case2()) {
+        console.log("case 2");
+        break;
+    }
+}
+
+// function case1 called
+// case 1
+// function case1 called
+// case 2
+
+\end{lstlisting}
+
+We could solve the problem by checking the switch test expression against function calls and saving the results into variables and then reusing the variables in if-else test expressions:
+
+\begin{lstlisting}
+function case1() {
+    console.log("function case1 called");
+    return 1;
+}
+
+
+function case2() {
+    console.log("function case2 called");
+    return 2;
+}
+
+x = 1;
+
+for (_xyz123uvw in [1]) {
+    _xyz124uvw = case1();
+    _xyz125uvw = case2();
+
+    if (x === _xyz124uvw) {
+        console.log("case 1");
+    }
+
+    if (x === _xyz124uvw || x === _xyz125uvw) {
+        console.log("case 2");
+        break;
+    }
+}
+
+// function case1 called
+// function case2 called
+// case 1
+// case 2
+
+\end{lstlisting} 
+
+But as one can see this is not a good solution as we have to evaluate all the function calls preliminarily -- both $case1()$ and $case2()$ -- while the normal switch statement evaluates only $case1()$, that is it stops when it finds a suitable case branch. This is, in general, the first problem with rewriting switch statements.
+
+The second general problem is a default branch of a switch statement. At the first glance, the solution with wrapping if-else statement in a loop works. Suppose we have a following switch statement:
+
+\begin{lstlisting}
+x = 3;
+
+switch(x) {
+    case 1: 
+        console.log("case 1");
+    case 2:
+        console.log("case 2");	
+        break;
+    default: 
+        console.log("default");
+}
+
+//default
+\end{lstlisting} 
+
+ Now we convert to series of if-else statements wrapped in a loop as follows:
+ 
+\begin{lstlisting}
+x = 3;
+
+for (_xyz123uvw in [1]) {
+    if (x === 1) { 
+        console.log("case 1");
+    }
+	
+    if (x === 2 || x === 1) {
+        console.log("case 2");	
+        break;
+    }
+	
+    console.log("default");
+}
+
+// default
+\end{lstlisting}
+ 
+However, unfortunately, the JavaScript syntax does not make one put a default case to the end of the switch statement. For example, we can legally have it between other two cases:
+
+\begin{lstlisting}
+function case1() {
+    console.log("function case1 called");
+    return 1;
+}
+
+
+function case2() {
+    console.log("function case2 called");
+    return 2;
+}
+
+x = 3;
+
+switch(x) {
+	case case1(): 
+		console.log("case 1");
+	default: 
+		console.log("default");
+	case case2():
+		console.log("case 2");	
+		break;
+}
+
+// function case1 called
+// function case2 called
+// default
+// case 2 
+\end{lstlisting}
+
+This example clearly shows that, when translating the switch statement, the code of the default branch should be placed between two if-statements rather than after, as opposed to the previous example. At the same time the default code should be executed only after $x$ is compared both to $case1()$ and to $case2()$ and this is again critical as the functions can have side effects. All these subtleties cannot be satisfied with the current approach.
+
+Also, one should remember that there can be nested switch statements inside a switch statement.
+
+
+
+\end{document}

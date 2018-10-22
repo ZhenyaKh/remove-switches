@@ -1,0 +1,74 @@
+switch (x) {
+    default:
+		console.log("default");
+		break;
+    case case1():
+		console.log("case1");
+		break;
+    case case2():
+		console.log("case2");
+		break;
+}
+
+switch (x) {
+    case case1():
+		console.log("case1");
+		break;
+    default:
+		console.log("default");
+		break;
+    case case2():
+		console.log("case2");
+		break;
+}
+
+switch (x) {
+    case case1():
+		console.log("case1");
+		break;
+    case case2():
+		console.log("case2");
+		break;
+    default:
+		console.log("default");
+		break;
+}
+
+switch (x) {
+	default:
+		console.log("default");
+        break;
+    case case1():
+		console.log("case1");
+		break;
+}
+
+switch (x) {
+    case case1():
+		console.log("case1");
+		break;
+    default:
+		console.log("default");
+		break;
+}
+
+switch (x) {
+    case case1():
+		console.log("case1");
+		break;
+    case case2():
+		console.log("case2");
+		break;
+}
+
+switch(x) {
+    default:
+		console.log("default");
+
+}
+
+switch(x) {
+    case case1():
+		console.log("case1");
+
+}
