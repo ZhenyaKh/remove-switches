@@ -10,7 +10,8 @@ function getIfTest(left, right) {
     };
 }
 
-function generateIfStatements(switchStatement, casesStatements, casesOffsets, container) {
+function generateIfStatements(switchStatement, casesStatements, casesOffsets, discriminantVar,
+                                                                              container) {
     for (i in switchStatement.cases) {
         var switchCase = switchStatement.cases[i];
 
@@ -20,7 +21,7 @@ function generateIfStatements(switchStatement, casesStatements, casesOffsets, co
 
         var ifStatement = {
             type : 'IfStatement',
-            test : getIfTest(switchStatement.discriminant, switchCase.test),
+            test : getIfTest({ type : 'Identifier', name : discriminantVar }, switchCase.test),
             consequent : { type : 'BlockStatement', body : casesStatements.slice(casesOffsets[i]) },
             alternate : null
         };
@@ -47,6 +48,19 @@ function digestCases(cases, casesStatements, casesOffsets, defaultCase) {
     }    
 }
 
+function nameGenerator() {
+    /* https://gist.github.com/gordonbrander/2230317 */
+    return '_' + Math.random().toString(36).substr(2, 9);
+};
+
+function getDiscriminantDeclaration(switchStatement, discriminantVar) {
+    return { type: 'VariableDeclaration',
+             kind : 'var',
+             declarations : [ { type : 'VariableDeclarator',
+             id : { type: 'Identifier', name: discriminantVar },
+             init : switchStatement.discriminant } ] }
+}
+
 function updateNestingSwitch(entries, startIndex, nestedSwitchStart, nestedSwitchEnd, ifCode) {
     var length = entries.length;
     
@@ -70,15 +84,19 @@ function getIfStatements(switchStatement) {
     var result = { type : 'DoWhileStatement',
                    body : { type : 'BlockStatement', body : [] },
                    test : { type : 'Literal', value : false } };
-    
+
     var casesStatements = [];    
     var casesOffsets = [];
     var defaultCase = { exists : false };
+    var discriminantVar = nameGenerator();
 
     digestCases(switchStatement.cases, casesStatements, casesOffsets, defaultCase);
     casesStatements.push({ type : 'BreakStatement', label : null});
 
-    generateIfStatements(switchStatement, casesStatements, casesOffsets, result.body.body);
+    result.body.body.push(getDiscriminantDeclaration(switchStatement, discriminantVar));
+
+    generateIfStatements(switchStatement, casesStatements, casesOffsets, discriminantVar,
+                         result.body.body);
     
     if (defaultCase.exists) {
         result.body.body = result.body.body.concat(casesStatements.slice(defaultCase.offset));
