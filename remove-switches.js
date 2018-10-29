@@ -51,7 +51,7 @@ function digestCases(cases, casesStatements, casesOffsets, defaultCase) {
 function nameGenerator() {
     /* https://gist.github.com/gordonbrander/2230317 */
     return '_' + Math.random().toString(36).substr(2, 9);
-};
+}
 
 function getDiscriminantDeclaration(switchStatement, discriminantVar) {
     return { type: 'VariableDeclaration',
