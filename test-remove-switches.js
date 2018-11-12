@@ -3744,3 +3744,76 @@ console.log("end");
 
 "start\nSwitch 1\nnested Switch 1\ndoubly nested Switch 1\n" +
 "Switch 2\nnested Switch 2\ndoubly nested Switch 2\nend\n");
+
+/*!
+ * Switch not inside a block statement
+*/
+test("Test 124",
+
+`
+console.log("start");
+
+for (i = 1; i <= 2; i++) 
+    switch (i) {
+        case 1:
+            console.log("case " + i);
+            break;
+        case 2:        
+            console.log("case " + i);
+            break;
+    }
+    
+console.log("end");    
+`,
+
+"start\ncase 1\ncase 2\nend\n");
+
+/*!
+ * Switch inside a labeled statement using a labeled break
+*/
+test("Test 125",
+
+`
+console.log("start");
+
+mylabel: 
+for (i = 1; i <= 2; i++) {
+    console.log("cycle");
+    switch (i) {
+        case 1:
+            console.log("case 1");
+            break mylabel;
+        case 2:        
+            console.log("case 2");
+    }
+}    
+    
+console.log("end");    
+`,
+
+"start\ncycle\ncase 1\nend\n");
+
+/*!
+ * Switch inside a labeled statement not using a labeled break
+*/
+test("Test 126",
+
+`
+console.log("start");
+
+mylabel: 
+for (i = 1; i <= 2; i++) {
+    console.log("cycle");
+    switch (i) {
+        case 1:
+            console.log("case 1");
+            break;
+        case 2:        
+            console.log("case 2");
+    }
+}    
+    
+console.log("end");    
+`,
+
+"start\ncycle\ncase 1\ncycle\ncase 2\nend\n");
