@@ -55,22 +55,10 @@ function nameGenerator() {
 
 function getDiscriminantDeclaration(switchStatement, discriminantVar) {
     return { type         : 'VariableDeclaration',
-        kind         : 'var',
-        declarations : [ { type : 'VariableDeclarator',
-            id           : { type: 'Identifier', name: discriminantVar },
-            init         : switchStatement.discriminant } ] };
-}
-
-function isNestedSwitch(entries, switchIndex, switchEnd) {
-    const length = entries.length;
-
-    for (let i = switchIndex + 1; i < length; ++i) {
-        if (entries[i].end >= switchEnd) {
-            return true;
-        }
-    }
-
-    return false;
+             kind         : 'const',
+             declarations : [ { type : 'VariableDeclarator',
+                                id   : { type : 'Identifier', name : discriminantVar },
+                                init : switchStatement.discriminant } ] };
 }
 
 function replaceSwitchNode(switchNode, ifStatements) {
@@ -84,8 +72,8 @@ function replaceSwitchNode(switchNode, ifStatements) {
 
 function getIfStatements(switchStatement) {
     const result = { type : 'DoWhileStatement',
-        body : { type : 'BlockStatement', body : [] },
-        test : { type : 'Literal', value : false } };
+                     body : { type : 'BlockStatement', body : [] },
+                     test : { type : 'Literal', value : false } };
 
     let   casesStatements = [];
     let   casesOffsets    = [];
@@ -114,28 +102,16 @@ function isSwitchStatement(node) {
 exports.removeSwitches = function(source) {
     let entries = [];
 
-    esprima.parseScript(source, { range : true, tolerant : true }, function (node, meta) {
+    const syntaxTree = esprima.parseScript(source, { tolerant : true }, function (node) {
         if (isSwitchStatement(node)) {
-            entries.push({
-                node  : node,
-                start : meta.start.offset,
-                end   : meta.end.offset,
-            });
+            entries.push(node);
         }
     });
-    entries.sort((a, b) => { return b.start - a.start });
 
     for (let i in entries) {
-        const entry = entries[i];
-
-        const ifStatements = getIfStatements(entry.node);
-        replaceSwitchNode(entry.node, ifStatements);
-
-        if (!isNestedSwitch(entries, Number(i), entry.end)) {
-            const ifCode = escodegen.generate(ifStatements);
-            source = source.slice(0, entry.start) + ifCode + source.slice(entry.end);
-        }
+        const ifStatements = getIfStatements(entries[i]);
+        replaceSwitchNode(entries[i], ifStatements);
     }
 
-    return source;
+    return escodegen.generate(syntaxTree);
 };

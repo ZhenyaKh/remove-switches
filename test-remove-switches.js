@@ -2418,7 +2418,7 @@ switch (case3()) {
     case case2():
 		console.log("case2");
     default:
-		console.log("default");		
+		console.log("default");
 }
 
 console.log("end");`,
@@ -2448,7 +2448,7 @@ switch (case1()) {
     case case2():
 		console.log("case2");
     default:
-		console.log("default");		
+		console.log("default");
 }
 console.log("end");
 `,
@@ -2478,7 +2478,7 @@ switch (case2()) {
     case case2():
 		console.log("case2");
     default:
-		console.log("default");		
+		console.log("default");
 }
 console.log("end");
 `,
@@ -2508,7 +2508,7 @@ function case3() {
 }
 
 switch (case3()) {
-    case case1():   
+    case case1():
 		console.log("case1");
 		break;
     case case2():
@@ -2537,7 +2537,7 @@ function case2() {
 }
 
 switch (case1()) {
-    case case1():   
+    case case1():
 		console.log("case1"); break;
     case case2():
 		console.log("case2");
@@ -2570,11 +2570,11 @@ function case2() {
 switch (case2()) {
     case case1():
 		console.log("case1");
-        break;				
+        break;
     case case2():
 		console.log("case2");
     default:
-		console.log("default"); 
+		console.log("default");
 }
 
 console.log("end");`,
@@ -2609,7 +2609,7 @@ switch (case3()) {
 		console.log("case2");
 		break;
     default:
-		console.log("default");		
+		console.log("default");
 }
 
 console.log("end");`,
@@ -2640,7 +2640,7 @@ switch (case1()) {
 		console.log("case2");
 		break;
     default:
-		console.log("default");		
+		console.log("default");
 }
 console.log("end");
 `,
@@ -2671,7 +2671,7 @@ switch (case2()) {
 		console.log("case2");
 		break;
     default:
-		console.log("default");		
+		console.log("default");
 }
 console.log("end");
 `,
@@ -2731,10 +2731,10 @@ function case2() {
 
 switch (case1()) {
     case case1():
-		console.log("case1"); 
+		console.log("case1");
 		break;
     case case2():
-		console.log("case2"); 
+		console.log("case2");
 		break;
     default:
 		console.log("default");
@@ -2764,10 +2764,10 @@ function case2() {
 
 switch (case2()) {
     case case1():
-		console.log("case1"); 
+		console.log("case1");
 		break;
     case case2():
-		console.log("case2"); 
+		console.log("case2");
 		break;
     default:
 		console.log("default");
@@ -2903,12 +2903,12 @@ function case3() {
 switch (case3()) {
     case case1():
 		console.log("case1");
-		break;		
+		break;
     case case2():
 		console.log("case2");
     default:
 		console.log("default");
-	    break;	
+	    break;
 }
 
 console.log("end");
@@ -2936,7 +2936,7 @@ function case2() {
 switch (case1()) {
     case case1():
 		console.log("case1");
-		break;		
+		break;
     case case2():
 		console.log("case2");
     default:
@@ -2968,7 +2968,7 @@ function case2() {
 switch (case2()) {
     case case1():
 		console.log("case1");
-		break;		
+		break;
     case case2():
 		console.log("case2");
     default:
@@ -3008,8 +3008,8 @@ switch (case3()) {
 		console.log("case2");
 		break;
     default:
-		console.log("default");	
-		break;	
+		console.log("default");
+		break;
 }console.log("end");
 `,
 
@@ -3038,7 +3038,7 @@ switch (case1()) {
     case case2():
 		console.log("case2"); break;
     default:
-		console.log("default"); break;	
+		console.log("default"); break;
 }console.log("end");
 `,
 
@@ -3064,11 +3064,11 @@ switch (case2()) {
     case case1():
 		console.log("case1");
     case case2():
-		console.log("case2"); 
+		console.log("case2");
 		break;
     default:
-		console.log("default"); 
-		break;	
+		console.log("default");
+		break;
 }
 
 console.log("end");`,
@@ -3105,7 +3105,7 @@ switch (case3()) {
 		break;
     default:
 		console.log("default");
-		break;		
+		break;
 }console.log("end");
 `,
 
@@ -3555,7 +3555,7 @@ switch (case2()) {
 		console.log("default");
 		switch (3) {
             default:
-                console.log("nested2 default"); 
+                console.log("nested2 default");
                 break;
             case case1():
                 console.log("nested2 case1");
@@ -3597,14 +3597,14 @@ switch (x) {
                 console.log("nested1 case1");
         }switch (x) {
             default:
-                console.log("nested2 default"); 
+                console.log("nested2 default");
                 break;
             case case2():
                 console.log("nested2 case2");
         }
     default:
         console.log("default");
-        break;                
+        break;
     case case1():
 		console.log("case1");
 }
@@ -3644,12 +3644,12 @@ switch (x) {
                 console.log("nested1 case1");
                 switch (x) {
                     default:
-                        console.log("nested2 default"); 
+                        console.log("nested2 default");
                         break;
                     case case2():
                         console.log("nested2 case2");
                 }
-        }                
+        }
 }
 
 console.log("end");
@@ -3687,12 +3687,12 @@ switch (x) {
                 console.log("nested1 case1");
                 switch (x) {
                     default:
-                        console.log("nested2 default"); 
+                        console.log("nested2 default");
                         break;
                     case case2():
                         console.log("nested2 case2");
                 }
-        }                
+        }
 }
 
 console.log("end");
@@ -3711,32 +3711,32 @@ console.log("start");
 x = 1;
 switch (x) {
     case 1:
-        console.log("Switch 1"); 
+        console.log("Switch 1");
         switch(--x) {
             case 0:
                 console.log("nested Switch 1");
             case 4:
                 switch(x) {
-                    default: 
-                        console.log("doubly nested Switch 1");    
-                }                        
+                    default:
+                        console.log("doubly nested Switch 1");
+                }
         }
-    case 2:             
+    case 2:
 }
 
 switch (++x) {
-    case 2:       
+    case 2:
     case 1:
-    console.log("Switch 2"); 
+    console.log("Switch 2");
     switch(x * 3) {
         case 3:
             console.log("nested Switch 2");
         case 4:
             switch(x) {
-                default: 
-                    console.log("doubly nested Switch 2");    
-            }                        
-    }          
+                default:
+                    console.log("doubly nested Switch 2");
+            }
+    }
 }
 
 console.log("end");
@@ -3753,17 +3753,17 @@ test("Test 124",
 `
 console.log("start");
 
-for (i = 1; i <= 2; i++) 
+for (i = 1; i <= 2; i++)
     switch (i) {
         case 1:
             console.log("case " + i);
             break;
-        case 2:        
+        case 2:
             console.log("case " + i);
             break;
     }
-    
-console.log("end");    
+
+console.log("end");
 `,
 
 "start\ncase 1\ncase 2\nend\n");
@@ -3776,19 +3776,19 @@ test("Test 125",
 `
 console.log("start");
 
-mylabel: 
+mylabel:
 for (i = 1; i <= 2; i++) {
     console.log("cycle");
     switch (i) {
         case 1:
             console.log("case 1");
             break mylabel;
-        case 2:        
+        case 2:
             console.log("case 2");
     }
-}    
-    
-console.log("end");    
+}
+
+console.log("end");
 `,
 
 "start\ncycle\ncase 1\nend\n");
@@ -3801,19 +3801,69 @@ test("Test 126",
 `
 console.log("start");
 
-mylabel: 
+mylabel:
 for (i = 1; i <= 2; i++) {
     console.log("cycle");
     switch (i) {
         case 1:
             console.log("case 1");
             break;
-        case 2:        
+        case 2:
             console.log("case 2");
     }
-}    
-    
-console.log("end");    
+}
+
+console.log("end");
 `,
 
 "start\ncycle\ncase 1\ncycle\ncase 2\nend\n");
+
+/*!
+ * Switch inside a discriminant of a switch
+*/
+test("Test 127",
+
+`
+switch(function f () 
+       {
+           switch(1) {
+               case 1:
+                   console.log("case 1");
+                   return 2;
+           }
+       }()) 
+{                    
+    case 2:
+        console.log("case 2");
+}                
+`,
+
+"case 1\ncase 2\n");
+
+/*!
+ * Sequence expression (function f() {...}(), 2) as a switch discriminant
+*/
+test("Test 128",
+
+`
+function foo () {
+    console.log("foo");
+    return 1;
+}
+
+switch(function f () 
+       {
+           switch(foo()) {                             
+               case 2:    
+               case 1:
+                   console.log("case 1");
+                   return 1;                             
+           }
+       }(), 2) 
+{                    
+    case 2:
+        console.log("case 2");
+}                
+`,
+
+"foo\ncase 1\ncase 2\n");
