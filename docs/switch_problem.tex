@@ -86,7 +86,7 @@ switch(x) {
 // case 1
 \end{lstlisting}
 
-It can be rewritten as follows:
+At the very first glance, this piece of code can be rewritten as follows:
 
 \begin{lstlisting}
 x = 1;
@@ -123,7 +123,7 @@ switch(x) {
 // case 2
 \end{lstlisting}
 
-The first idea was to translate this kind  using labelled break statements as follows:
+The first idea was to translate this kind of code using labeled break statements as follows:
 
 \begin{lstlisting}
 x = 1;
@@ -144,7 +144,7 @@ label: {
 // case 2
 \end{lstlisting}
 
-But replacing break statements with labelled break statements cannot be easily done as inside a switch case the break statement can be, for example, inside one or even several block statements or inside an if-else statement and etc. Also, there can be loops inside the switch case and the break statements relating to the loop inside the switch case rather than to the switch case itself. This makes any editing of the break statements quite problematic overall as esprima library does not provide any informtaion on relation between a break statement and an statement to which it relates. The examples of the switches are below:
+But replacing break statements with labeled break statements cannot be easily done, as inside a switch case the break statement can be, for example, inside one or even several block statements or inside an if-else statement and etc. Also, there can be loops inside the switch case and the break statements relating to the loop inside the switch case rather than to the switch case itself. This makes any editing of the break statements quite problematic overall, as esprima library does not provide any information on relation between a break statement and an statement to which it relates. The examples of the switches are below:
 
 \begin{lstlisting}
 x = 1;
@@ -240,7 +240,7 @@ switch (x) {
 
 \end{lstlisting}
 
-If we rewrite the code we will see that $case1()$ function is called twice and this is bad as the function can have side effects:
+If we rewrite the code we will see that $case1()$ function is called twice and this is bad, as the function can have side effects:
 
 \begin{lstlisting}
 function case1() {
@@ -311,7 +311,7 @@ for (_xyz123uvw in [1]) {
 
 \end{lstlisting} 
 
-But as one can see this is not a good solution as we have to evaluate all the function calls preliminarily -- both $case1()$ and $case2()$ -- while the normal switch statement evaluates only $case1()$, that is it stops when it finds a suitable case branch. This is, in general, the first problem with rewriting switch statements.
+But as one can see this is not a good solution, as we have to evaluate all the function calls preliminarily -- both $case1()$ and $case2()$ -- while the normal switch statement evaluates only $case1()$, that is it stops when it finds a suitable case branch. This is, in general, the first problem with rewriting switch statements.
 
 The second general problem is a default branch of a switch statement. At the first glance, the solution with wrapping if-else statement in a loop works. Suppose we have a following switch statement:
 
@@ -384,10 +384,15 @@ switch(x) {
 // case 2 
 \end{lstlisting}
 
-This example clearly shows that, when translating the switch statement, the code of the default branch should be placed between two if-statements rather than after, as opposed to the previous example. At the same time the default code should be executed only after $x$ is compared both to $case1()$ and to $case2()$ and this is again critical as the functions can have side effects. All these subtleties cannot be satisfied with the current approach.
+This example clearly shows that, when translating the switch statement, the code of the default branch should be placed between two if-statements rather than after, as opposed to the previous example. At the same time the default code should be executed only after $x$ is compared both to $case1()$ and to $case2()$ and this is again critical, as the functions can have side effects. All these subtleties cannot be satisfied with such an approach.
 
 Also, one should remember that there can be nested switch statements inside a switch statement.
 
+\par\noindent\rule{\textwidth}{0.4pt}
+
+\textbf{UPDATE}
+
+Finally, I found the correct approach solving all the problems stated above and all other problems further discovered. The approach is distinct from the above-discussed variants of solution but uses ideas learned from the research presented above. The implementation of the final solution is present in the repository containing this documentation file together with the thorough suite of unit-tests checking a \emph{really} vast number of testing cases. When I have time I will append the description/explanation of the final solution to this documentation file. 
 
 
 \end{document}
