@@ -1,6 +1,6 @@
 # remove-switches
 
-This JavaScript library translates any piece of JavaScript code in such a way that all the switch-statements present in the piece of code would be converted to loop/if-statements. So put simply, the library allows one to get rid of all switch-statements in a JavaScript piece of code. 
+This JavaScript library makes translation of any JavaScript code given as input in the following way: the library converts all switch statements present in the piece of code to loop and if statements. So put simply, the library allows one to remove all switches from a JavaScript piece of code, while keeping the semantics of the code. 
 
 The thorough suite of unit-tests is also present in the repository and checks a really vast number of testing cases. 
 
