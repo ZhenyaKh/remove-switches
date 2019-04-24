@@ -14,8 +14,12 @@ At the first glance, one can think that the solution should be easy like e.g. tu
 - There can be labeled break statements in a switch
 - A break statement present in a case branch of a switch should not be necessarily the break associated with the case branch:
 
-  `switch(...) { case 1: for(;;){break} }` or `switch(...) { case 1: {break} }`
+  `switch(...) { case 1: for(;;){break} }`
   
+- A break statement of a case branch can be inside a block statement:
+ 
+  `switch(...) { case 1: {break} }`
+ 
 - Many other problems which I forgot to mention. The difficulty of the research problem is also partly explained in the documentation file present in the repository.
 
 The **thorough suite of unit-tests** is also present in the repository and checks a really vast number of testing cases. All the problems listed above have corresponding tests in the suite.
