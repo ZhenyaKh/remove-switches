@@ -12,7 +12,7 @@ At the first glance, one can think that the solution should be easy like e.g. tu
 
   `switch(function_with_side_effects1()) { case function_with_side_effects2(): // do stuff }`
 
-- The default case is not necessarily the last case of a switch and also may have no break statement
+- The default case is not necessarily the last case of a switch and also may have no break statement:
 
   ```
   function f() { console.log("function f."); return 1; }
