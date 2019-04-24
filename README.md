@@ -2,7 +2,7 @@
 
 This JavaScript library makes translation of valid JavaScript code given as input in the following way: the library converts all switch statements present in the piece of code to loop and if statements. So, put simply, this library allows one to remove all switches from a JavaScript piece of code, while keeping the semantics of the code.
 
-At the first glance, one can think that the solution should be easy like e.g. turning a switch statement into a simple if-elif-else statement. But this is not true if we remember the problems listed below. The **thorough suite of unit-tests** is present in the repository and checks a really vast number of testing cases. All the problems listed below have corresponding tests in the suite.
+At the first glance, one can think that the solution should be easy like e.g. turning a switch statement into a simple if-elif-else statement. But this is not true if we remember the problems listed below. The **thorough suite of unit-tests** is present in the repository and checks a really vast number of testing cases. All the problems listed below have corresponding unit-tests in the suite:
 
 - There can be no break statement in a case branch, so after execution of the case branch we can fall through to the next case branch:
 
