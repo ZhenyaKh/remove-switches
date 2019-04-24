@@ -28,6 +28,8 @@ At the first glance, one can think that the solution should be easy like e.g. tu
 
 - There can be nested switch statements inside a case branch of a switch statement
 
+  `switch(...) { case 1: switch (...) { ... } }`
+
 - There can be nested switch statements in a function definition present in a switch's discriminant:
 
   `switch(f(){switch(...){...}}) {...}`
