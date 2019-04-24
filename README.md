@@ -60,63 +60,68 @@ var newSourceString = switchRemoval.removeSwitches(oldSourceString);
 ```
 ## Example
 
-The input of the unit-test #128 is the following:
+The input of the unit-test #76 is the following:
 
 ```js
-function foo () {
-    console.log("foo");
+function case1() {
+    console.log("function case1() called");
     return 1;
 }
 
-switch(function f () 
-       {
-           switch(foo()) {                             
-               case 2:    
-               case 1:
-                   console.log("case 1");
-                   return 1;                             
-           }
-       }(), 2) 
-{                    
-    case 2:
-        console.log("case 2");
-}    
+function case2() {
+    console.log("function case2() called");
+    return 2;
+}
+
+switch (case1()) {
+    case case1():
+		console.log("case1");
+	default:
+		console.log("default");
+    case case2():
+		console.log("case2");
+		break;
+}console.log("end");
 ```
 
 The resulting piece of code is the following:
 
 ```js
-function foo() {
-    console.log('foo');
+function case1() {
+    console.log('function case1() called');
     return 1;
 }
+function case2() {
+    console.log('function case2() called');
+    return 2;
+}
 do {
-    const _p6r8q5s32 = (function f() {
-        do {
-            const _l0rfzi4cd = foo();
-            if (_l0rfzi4cd === 2) {
-                console.log('case 1');
-                return 1;
-                break;
-            }
-            if (_l0rfzi4cd === 1) {
-                console.log('case 1');
-                return 1;
-                break;
-            }
-        } while (false);
-    }(), 2);
-    if (_p6r8q5s32 === 2) {
-        console.log('case 2');
+    const _uhbhl9pob = case1();
+    if (_uhbhl9pob === case1()) {
+        console.log('case1');
+        console.log('default');
+        console.log('case2');
+        break;
         break;
     }
+    if (_uhbhl9pob === case2()) {
+        console.log('case2');
+        break;
+        break;
+    }
+    console.log('default');
+    console.log('case2');
+    break;
+    break;
 } while (false);
+console.log('end');
 ```
 
 The output of both the pieces of code is:
 
 ```
-foo
-case 1
-case 2
+case1
+default
+case2
+end
 ```
