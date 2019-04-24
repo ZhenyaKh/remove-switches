@@ -60,3 +60,65 @@ Usage of the library is extremely simple and can be seen in the file with the un
 const switchRemoval = require("./remove-switches");
 var newSourceString = switchRemoval.removeSwitches(oldSourceString);
 ```
+## Example
+
+The input of the unit-test #128 is the following:
+
+```js
+function foo () {
+    console.log("foo");
+    return 1;
+}
+
+switch(function f () 
+       {
+           switch(foo()) {                             
+               case 2:    
+               case 1:
+                   console.log("case 1");
+                   return 1;                             
+           }
+       }(), 2) 
+{                    
+    case 2:
+        console.log("case 2");
+}    
+```
+
+The resulting piece of code is the following:
+
+```js
+function foo() {
+    console.log('foo');
+    return 1;
+}
+do {
+    const _p6r8q5s32 = (function f() {
+        do {
+            const _l0rfzi4cd = foo();
+            if (_l0rfzi4cd === 2) {
+                console.log('case 1');
+                return 1;
+                break;
+            }
+            if (_l0rfzi4cd === 1) {
+                console.log('case 1');
+                return 1;
+                break;
+            }
+        } while (false);
+    }(), 2);
+    if (_p6r8q5s32 === 2) {
+        console.log('case 2');
+        break;
+    }
+} while (false);
+```
+
+The output of both the pieces of code is:
+
+```
+foo
+case 1
+case 2
+```
