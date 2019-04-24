@@ -44,7 +44,7 @@ At the first glance, one can think that the solution should be easy like e.g. tu
  
   `switch(...) { case 1: {{break}} }`
  
-- Many other problems which I forgot to mention. The difficulty of the research problem is also partly explained in the documentation file present in the repository.
+- Many other problems which I forgot to mention. The difficulty of the research problem is also partly explained in the documentation file `docs/switch_problem.pdf` present in the repository.
 
 ## Dependencies
 
