@@ -2,7 +2,7 @@
 
 This JavaScript library makes translation of valid JavaScript code given as input in the following way: the library converts all switch statements present in the piece of code to loop and if statements. So, put simply, this library allows one to remove all switches from a JavaScript piece of code, while keeping the semantics of the code.
 
-At the first glance, one can think that the solution should be easy like e.g. turning a switch statement into a simple if-elif-else statement. But this is not true if we remember the following problems:
+At the first glance, one can think that the solution should be easy like e.g. turning a switch statement into a simple if-elif-else statement. But this is not true if we remember the problems listed below. The **thorough suite of unit-tests** is present in the repository and checks a really vast number of testing cases. All the problems listed below have corresponding tests in the suite.
 
 - There can be no break statement in a case branch, so after execution of the case branch we can fall through to the next case branch:
 
@@ -14,7 +14,7 @@ At the first glance, one can think that the solution should be easy like e.g. tu
 
 - The default case is not necessarily the last case of a switch and also may have no break statement:
 
-  ```
+  ```js
   function f() { console.log("function f."); return 1; }
   function g() { console.log("function g."); return 2; }
   function h() { console.log("function h."); return 3; }
@@ -46,15 +46,13 @@ At the first glance, one can think that the solution should be easy like e.g. tu
  
 - Many other problems which I forgot to mention. The difficulty of the research problem is also partly explained in the documentation file present in the repository.
 
-The **thorough suite of unit-tests** is also present in the repository and checks a really vast number of testing cases. All the problems listed above have corresponding tests in the suite.
-
 ## Dependencies
 
 JavaScript libraries esprima and escodegen are already present in the repository.
 
 ## Usage
 
-Usage of the library is extremely simple and can be seen in the file with the unit-tests. But the idea is present below.
+Usage of the library is extremely simple and can be seen in the file with the unit-tests. But the idea is present below:
 
 ```js
 const switchRemoval = require("./remove-switches");
