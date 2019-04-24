@@ -4,7 +4,7 @@ This JavaScript library makes translation of valid JavaScript code given as inpu
 
 At the first glance, one can think that the solution should be easy like e.g. turning a switch statement into a simple if-elif-else statement. But this is not true if we remember the following:
 
-- There can be no break statement in a case branch, so after execution of the case branch we can fall through to the next case branch
+- There can be no break statement in a case branch, so after execution of the case branch we can fall through to the next case branch:
 
   `switch(1) { case 1: // execute this; case 2: // and this; default: // and this }`
 
