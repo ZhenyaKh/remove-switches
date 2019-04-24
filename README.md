@@ -26,7 +26,7 @@ At the first glance, one can think that the solution should be easy like e.g. tu
   // Output: function h. function f. function g. default. case 2.
   ```
 
-- There can be nested switch statements inside a case branch of a switch statement
+- There can be nested switch statements inside a case branch of a switch statement:
 
   `switch(...) { case 1: switch (...) { ... } }`
 
@@ -34,7 +34,7 @@ At the first glance, one can think that the solution should be easy like e.g. tu
 
   `switch(f(){switch(...){...}}) {...}`
   
-- There can be labeled break statements in a case branch of a switch statement
+- There can be labeled break statements in a case branch of a switch statement.
 
 - A break statement present in a case branch of a switch should not be necessarily the break statement associated with the case branch:
 
