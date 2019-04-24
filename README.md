@@ -75,12 +75,12 @@ function case2() {
 
 switch (case1()) {
     case case1():
-		console.log("case1");
-	default:
-		console.log("default");
+                console.log("case1");
+    default:
+                console.log("default");
     case case2():
-		console.log("case2");
-		break;
+                console.log("case2");
+                break;
 }console.log("end");
 ```
 
