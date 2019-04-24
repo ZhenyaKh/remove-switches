@@ -12,7 +12,7 @@ At the first glance, one can think that the solution should be easy like e.g. tu
   `switch(f(){switch(...){...}}){...}`
   
 - There can be labeled break statements in a switch
-- A break statement present in a case branch of a switch should not be necessarily the break associated with the case branch:
+- A break statement present in a case branch of a switch should not be necessarily the break statement associated with the case branch:
 
   `switch(...) { case 1: for(;;){break} }`
   
