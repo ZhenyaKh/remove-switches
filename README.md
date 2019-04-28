@@ -1,4 +1,4 @@
-# Replace-Switches JavaScript Library
+# Replace-Switches: Rewrites Switch Statements in JavaScript Code
 
 This JS library makes translation of valid JavaScript code given as input in the following way: the library converts all switch statements present in the piece of code to loop and if statements. So, put simply, this library allows one to remove all switches from a JavaScript piece of code, while keeping the semantics of the code.
 
